@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.nebyu.jobapplicationtracker.repository.JobApplicationRepositoryTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 1.287 s <<< FAILURE! - in com.nebyu.jobapplicationtracker.repository.JobApplicationRepositoryTest
+testFindByUser  Time elapsed: 0.218 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: not-null property references a null or transient value : com.nebyu.jobapplicationtracker.model.JobApplication.jobCategory
+	at com.nebyu.jobapplicationtracker.repository.JobApplicationRepositoryTest.setup(JobApplicationRepositoryTest.java:46)
+Caused by: org.hibernate.PropertyValueException: not-null property references a null or transient value : com.nebyu.jobapplicationtracker.model.JobApplication.jobCategory
+	at com.nebyu.jobapplicationtracker.repository.JobApplicationRepositoryTest.setup(JobApplicationRepositoryTest.java:46)
+
+testFindByStatusAndUser  Time elapsed: 0.008 s  <<< ERROR!
+org.springframework.dao.DataIntegrityViolationException: not-null property references a null or transient value : com.nebyu.jobapplicationtracker.model.JobApplication.jobCategory
+	at com.nebyu.jobapplicationtracker.repository.JobApplicationRepositoryTest.setup(JobApplicationRepositoryTest.java:46)
+Caused by: org.hibernate.PropertyValueException: not-null property references a null or transient value : com.nebyu.jobapplicationtracker.model.JobApplication.jobCategory
+	at com.nebyu.jobapplicationtracker.repository.JobApplicationRepositoryTest.setup(JobApplicationRepositoryTest.java:46)
+

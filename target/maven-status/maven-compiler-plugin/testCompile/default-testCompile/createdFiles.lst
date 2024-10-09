@@ -1,0 +1,3 @@
+com\nebyu\jobapplicationtracker\repository\JobApplicationRepositoryTest.class
+com\nebyu\jobapplicationtracker\JobApplicationTrackerApplicationTests.class
+com\nebyu\jobapplicationtracker\repository\UserRepositoryTest.class
