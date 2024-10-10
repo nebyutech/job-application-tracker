@@ -30,3 +30,37 @@ document.getElementById("editEmail").addEventListener("click", function() {
         emailInput.style.display = "none";
     });
 });
+
+
+// Bootstrap-enhanced form validation
+(function () {
+    'use strict';
+    window.addEventListener('load', function () {
+        // Fetch all forms
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over forms and prevent submission if invalid
+        Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+
+// Resume upload interaction
+$('#resumeUpload').on('change', function () {
+    var fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass('selected').html(fileName);
+});
+
+// Smooth scroll for anchor links
+$(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+    $('html, body').animate({
+        scrollTop: $($.attr(this, 'href')).offset().top
+    }, 500);
+});

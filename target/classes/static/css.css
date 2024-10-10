@@ -1,31 +1,88 @@
+/* Custom Styles */
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
+    padding: 0;
+    background-color: #f8f9fa;
 }
 
-h1 {
-    color: #333;
+h1, h2, h3 {
+    color: #343a40;
+    margin-bottom: 20px;
 }
 
-form {
-    margin: 20px 0;
+.container {
+    margin-top: 40px;
 }
 
-input {
-    margin: 10px 0;
-    padding: 8px;
-}
-
-button {
-    background-color: #28a745;
+/* Buttons */
+.btn-custom {
+    background-color: #007bff;
     color: white;
-    padding: 10px 15px;
     border: none;
-    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 5px;
 }
 
-button:hover {
-    background-color: #218838;
+.btn-custom:hover {
+    background-color: #0056b3;
+}
+
+/* Forms */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Tables */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+/* Navigation */
+.navbar-custom {
+    background-color: #007bff;
+}
+
+.navbar-custom a {
+    color: white;
+}
+
+.navbar-custom a:hover {
+    color: #ffca28;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
 }
