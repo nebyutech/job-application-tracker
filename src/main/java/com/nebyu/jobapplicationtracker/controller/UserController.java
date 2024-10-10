@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+
+import org.springframework.web.bind.annotation.RestController;
+
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -18,7 +22,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        Optional<User> existingUser = userService.findByUsername(user.getUsername());
+        Optional<User> existingUser = Optional.ofNullable(userService.findByUsername(user.getUsername()));
         if (existingUser.isPresent()) {
             return ResponseEntity.badRequest().body("Username already taken.");
         }
@@ -29,7 +33,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
-        Optional<User> existingUser = userService.findByUsername(user.getUsername());
+        Optional<User> existingUser = Optional.ofNullable(userService.findByUsername(user.getUsername()));
         if (existingUser.isPresent() &&
                 new BCryptPasswordEncoder().matches(user.getPassword(), existingUser.get().getPassword())) {
             return ResponseEntity.ok("Login successful.");

@@ -4,20 +4,18 @@ import com.nebyu.jobapplicationtracker.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-
-@SpringBootTest
-@ActiveProfiles("test") // Add this to use application-test.properties
-
-
+// Use @DataJpaTest for repository testing
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class UserRepositoryTest {
 
     @Autowired
@@ -33,22 +31,15 @@ public class UserRepositoryTest {
         userRepository.save(user);
     }
 
-//    @Test
-//    public void testFindByUsername() {
-//        Optional<User> user = userRepository.findByUsername("testuser");
-//        assertTrue(user.isPresent());
-
-
     @Test
     void testFindByUsername() {
-        User user = new User();
-        user.setUsername("testuser");
-        user.setPassword("password");
-        user.setEmail("testuser@example.com");
+        // Create the first user
+        User user = new User("testuser1", "testuser1@example.com", "password");
         userRepository.save(user);
 
-        Optional<User> foundUser = userRepository.findByUsername("testuser");
-        assertThat(foundUser.isPresent()).isTrue();
-        assertThat(foundUser.get().getUsername()).isEqualTo("testuser");
+        // Proceed with finding the first user
+        Optional<User> foundUser = Optional.ofNullable(userRepository.findByUsername("testuser1"));
+        assertTrue(foundUser.isPresent(), "User should be found");
+        assertEquals("testuser1", foundUser.get().getUsername());
     }
 }

@@ -1,51 +1,44 @@
-//package com.nebyu.jobapplicationtracker.jobapplicationtracker.service;
-//
-//import com.nebyu.jobapplicationtracker.jobapplicationtracker.model.User;
-//import com.nebyu.jobapplicationtracker.jobapplicationtracker.repository.UserRepository;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//
-//import java.util.Optional;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.when;
-//
-//public class UserServiceTest {
-//
-//    @InjectMocks
-//    private UserService userService;
-//
-//    @Mock
-//    private UserRepository userRepository;
-//
-//    @Mock
-//    private BCryptPasswordEncoder passwordEncoder;
-//
-//    @BeforeEach
-//    public void setUp() {
-//        MockitoAnnotations.openMocks(this);
-//    }
-//
-//    @Test
-//    public void testRegisterUser() {
-//        User user = new User();
-//        user.setUsername("testuser");
-//        user.setPassword("password");
-//        user.setEmail("test@example.com");
-//
-//        when(passwordEncoder.encode("password")).thenReturn("encodedPassword");
-//        when(userRepository.save(user)).thenReturn(user);
-//
-//        User registeredUser = userService.registerUser(user);
-//
-//        assertEquals("encodedPassword", registeredUser.getPassword());
-//        assertEquals("testuser", registeredUser.getUsername());
-//    }
-//
-//
-//
-//}
+package com.nebyu.jobapplicationtracker.service;
+
+import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.nebyu.jobapplicationtracker.model.User;
+import com.nebyu.jobapplicationtracker.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
+
+@SpringBootTest
+@ExtendWith(SpringExtension.class)
+public class UserServiceTest {
+
+    @Autowired
+    private UserService userService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+
+
+    @Test
+    public void testRegisterUser() {
+        User user = new User();
+        user.setUsername("testUser");
+        user.setEmail("testUser@example.com");  // Set the email here
+        user.setPassword("password123");
+
+        userService.registerUser(user);
+    }
+}

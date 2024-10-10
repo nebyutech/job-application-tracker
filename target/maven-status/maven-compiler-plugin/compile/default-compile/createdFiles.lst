@@ -5,7 +5,6 @@ com\nebyu\jobapplicationtracker\controller\GlobalExceptionHandler.class
 com\nebyu\jobapplicationtracker\exception\ResourceNotFoundException.class
 com\nebyu\jobapplicationtracker\service\UserService.class
 com\nebyu\jobapplicationtracker\model\Resume.class
-com\nebyu\jobapplicationtracker\model\JobCategory.class
 com\nebyu\jobapplicationtracker\JobApplicationTrackerApplication.class
 com\nebyu\jobapplicationtracker\model\User.class
 com\nebyu\jobapplicationtracker\controller\UserController.class

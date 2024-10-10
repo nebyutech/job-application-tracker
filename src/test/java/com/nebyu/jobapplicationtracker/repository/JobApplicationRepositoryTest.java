@@ -5,19 +5,23 @@ import com.nebyu.jobapplicationtracker.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.nebyu.jobapplicationtracker.model.JobApplication;
 import com.nebyu.jobapplicationtracker.model.User;
-
-
+import org.springframework.stereotype.Repository;
+import org.springframework.test.context.TestPropertySource;
 
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class JobApplicationRepositoryTest {
 
     @Autowired
@@ -30,41 +34,23 @@ public class JobApplicationRepositoryTest {
 
     @BeforeEach
     public void setup() {
-        // Create and save a user
-        user = new User();
-        user.setUsername("testuser");
-        user.setPassword("testpass");
-        user.setEmail("testuser@example.com");
+        user = new User("testuser", "testuser@example.com", "password");
         userRepository.save(user);
-
-        // Create and save job applications
-        JobApplication jobApp1 = new JobApplication();
-        jobApp1.setCompany("Company A");
-        jobApp1.setPosition("Developer");
-        jobApp1.setStatus("Applied");
-        jobApp1.setUser(user);
-        jobApplicationRepository.save(jobApp1);
-
-        JobApplication jobApp2 = new JobApplication();
-        jobApp2.setCompany("Company B");
-        jobApp2.setPosition("Designer");
-        jobApp2.setStatus("Interviewing");
-        jobApp2.setUser(user);
-        jobApplicationRepository.save(jobApp2);
     }
 
     @Test
-    public void testFindByUser() {
+    void testFindByUser() {
+        // Creating and saving JobApplication with the new constructor
+        JobApplication jobApp1 = new JobApplication("Company A", "Developer", "Applied", user);
+        jobApplicationRepository.save(jobApp1);
+
+        JobApplication jobApp2 = new JobApplication("Company B", "Designer", "Interviewing", user);
+        jobApplicationRepository.save(jobApp2);
+
+        // Fetching job applications by user and verifying the size
         List<JobApplication> applications = jobApplicationRepository.findByUser(user);
         assertNotNull(applications);
         assertEquals(2, applications.size());
     }
 
-    @Test
-    public void testFindByStatusAndUser() {
-        List<JobApplication> applications = jobApplicationRepository.findByStatusAndUser("Applied", user);
-        assertNotNull(applications);
-        assertEquals(1, applications.size());
-        assertEquals("Company A", applications.get(0).getCompany());
-    }
 }

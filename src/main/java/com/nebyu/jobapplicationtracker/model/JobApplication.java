@@ -1,7 +1,14 @@
 package com.nebyu.jobapplicationtracker.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+
 import java.time.LocalDate;
+
 
 @Entity
 public class JobApplication {
@@ -10,34 +17,27 @@ public class JobApplication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String company;
-
-    @Column(nullable = false)
     private String position;
-
-    @Column(nullable = false)
     private String status;
 
-    @Column(nullable = false)
-    private LocalDate applicationDate;
-
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    // Constructor
+    private LocalDate applicationDate;
+    // No-args constructor
     public JobApplication() {
-        // Default constructor
     }
 
-    // This method ensures the application date is set before persisting
-    @PrePersist
-    protected void onCreate() {
-        this.applicationDate = LocalDate.now();
+    // Parameterized constructor
+    public JobApplication(String company, String position, String status, User user) {
+        this.company = company;
+        this.position = position;
+        this.status = status;
+        this.user = user;
     }
 
-    // Getters and Setters
+    // Getters and setters
+
     public Long getId() {
         return id;
     }
@@ -68,14 +68,6 @@ public class JobApplication {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public LocalDate getApplicationDate() {
-        return applicationDate;
-    }
-
-    public void setApplicationDate(LocalDate applicationDate) {
-        this.applicationDate = applicationDate;
     }
 
     public User getUser() {

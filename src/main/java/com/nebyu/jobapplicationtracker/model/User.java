@@ -31,7 +31,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String username;
 
     @Column(nullable = false)
@@ -40,8 +40,15 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<JobApplication> jobApplications;
+    public User(String testuser1, String mail, String password) {
+    }
+
+    public User() {
+
+    }
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<JobApplication> jobApplications;
 
     // Getters and Setters
     public Long getId() {
@@ -76,11 +83,11 @@ public class User {
         this.email = email;
     }
 
-    public List<JobApplication> getJobApplications() {
-        return jobApplications;
+//    public List<JobApplication> getJobApplications() {
+//        return jobApplications;
+//    }
+
+//    public void setJobApplications(List<JobApplication> jobApplications) {
+//        this.jobApplications = jobApplications;
     }
 
-    public void setJobApplications(List<JobApplication> jobApplications) {
-        this.jobApplications = jobApplications;
-    }
-}
