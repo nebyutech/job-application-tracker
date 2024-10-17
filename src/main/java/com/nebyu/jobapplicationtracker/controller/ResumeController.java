@@ -36,5 +36,3 @@ public class ResumeController {
         return ResponseEntity.ok("Resume uploaded successfully");
     }
 }
-
-

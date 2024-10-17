@@ -1,59 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Job Application Tracker</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 100px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: #28a745;
+            outline: none;
+        }
+        .tooltip {
+            font-size: 0.8em;
+            color: #888;
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            padding: 15px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 100px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                max-width: 100%;
+                margin: 20px;
+            }
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-custom">
-    <div class="container">
-        <a class="navbar-brand" href="#">Job Application Tracker</a>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 <div class="container">
-    <h1 class="text-center">Register</h1>
-    <form class="needs-validation" novalidate action="/api/users/register" method="post">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" required>
-            <div class="invalid-feedback">Please provide a valid username.</div>
-        </div>
+    <h1>Register</h1>
+    <form th:action="@{/api/users/register}" method="post" id="registerForm" class="needs-validation" novalidate>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        <div class="tooltip">Username must be unique</div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" required>
-            <div class="invalid-feedback">Please provide a password.</div>
-        </div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <div class="tooltip">Password must be at least 6 characters</div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-            <div class="invalid-feedback">Please provide a valid email.</div>
-        </div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        <div class="tooltip">Use a valid email address</div>
 
-        <button type="submit" class="btn btn-custom btn-block">Register</button>
+        <button type="submit" class="submit-btn">Register</button>
     </form>
-    <a href="/login" class="d-block text-center mt-3">Already have an account? Login here</a>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
+</div>
+
+<!-- Include script.js -->
 <script src="/js/script.js"></script>
 </body>
 </html>

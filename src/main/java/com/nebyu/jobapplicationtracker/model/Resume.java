@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long
+            id;
 
     @Column(nullable = false)
     private String fileName;
@@ -54,5 +55,16 @@ public class Resume {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-}
 
+    public void setUser(User user) {
+
+    }
+
+    public void setId(long l) {
+
+    }
+
+    public Long getId() {
+        return null;
+    }
+}

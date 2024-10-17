@@ -81,11 +81,5 @@ public class User {
         this.email = email;
     }
 
-//    public List<JobApplication> getJobApplications() {
-//        return jobApplications;
-//    }
 
-//    public void setJobApplications(List<JobApplication> jobApplications) {
-//        this.jobApplications = jobApplications;
-    }
-
+}

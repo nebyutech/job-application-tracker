@@ -11,7 +11,8 @@ public class ResumeService {
     @Autowired
     private ResumeRepository resumeRepository;
 
-    public void save(Resume resume) {
+    public Resume save(Resume resume) {
         resumeRepository.save(resume); // Save to database
+        return resume;
     }
 }

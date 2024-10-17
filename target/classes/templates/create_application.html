@@ -2,31 +2,105 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Create Job Application</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .form-container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1.2em;
+        }
+
+        input, select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h1 class="mb-4">Create Job Application</h1>
-    <form id="jobApplicationForm" class="row g-3">
-        <div class="col-md-6">
-            <label for="company" class="form-label">Company:</label>
-            <input type="text" class="form-control" id="company" name="company">
-        </div>
-        <div class="col-md-6">
-            <label for="position" class="form-label">Position:</label>
-            <input type="text" class="form-control" id="position" name="position">
-        </div>
-        <div class="col-md-6">
-            <label for="status" class="form-label">Status:</label>
-            <input type="text" class="form-control" id="status" name="status">
-        </div>
-        <div class="col-md-12 mt-3">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+
+<div class="form-container">
+    <h1>Create Job Application</h1>
+    <form id="jobApplicationForm" method="post">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" required>
+
+        <label for="position">Position</label>
+        <input type="text" id="position" name="position" required>
+
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+            <option value="">Select Status</option>
+            <option value="Applied">Applied</option>
+            <option value="Interviewing">Interviewing</option>
+            <option value="Offer">Offer</option>
+        </select>
+
+        <button type="submit" class="submit-btn">Submit</button>
     </form>
 </div>
 
+<!-- Include JavaScript -->
 <script src="/js/script.js"></script>
+<script>
+    document.getElementById('jobApplicationForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const company = document.getElementById('company').value;
+        const position = document.getElementById('position').value;
+        const status = document.getElementById('status').value;
+
+        // Replace userId with a valid user ID or retrieve it dynamically
+        const userId = 1;
+
+        // AJAX request to create a job application
+        $.ajax({
+            type: "POST",
+            url: `/api/applications/create?userId=${userId}`,
+            contentType: "application/json",
+            data: JSON.stringify({
+                company: company,
+                position: position,
+                status: status
+            }),
+            success: function (response) {
+                toastr.success(response);
+            },
+            error: function (error) {
+                toastr.error("An error occurred: " + error.responseText);
+            }
+        });
+    });
+</script>
 </body>
 </html>

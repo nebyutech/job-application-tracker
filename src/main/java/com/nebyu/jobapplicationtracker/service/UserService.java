@@ -31,4 +31,12 @@ public class UserService {
     public Optional<User> findById(Long id) {
         return userRepository.findById(id);
     }
+
+    public boolean loginUser(String username, String password123) {
+        return false;
+    }
+
+    public <T> Object loginUser(T any) {
+        return null;
+    }
 }

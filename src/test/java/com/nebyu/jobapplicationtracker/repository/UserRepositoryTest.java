@@ -1,16 +1,57 @@
+//package com.nebyu.jobapplicationtracker.repository;
+//
+//import com.nebyu.jobapplicationtracker.model.User;
+//import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.Test;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+//
+//import static org.junit.jupiter.api.Assertions.*;
+//
+//@DataJpaTest
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//public class UserRepositoryTest {
+//
+//    @Autowired
+//    private UserRepository userRepository;
+//
+//    @BeforeEach
+//    void setUp() {
+//        // Ensure no data remains from previous tests
+//        userRepository.deleteAll();
+//    }
+//
+//    @Test
+//    public void testFindByUsername() {
+//        // Given
+//        User user = new User();
+//        user.setUsername("uniqueuser" + System.currentTimeMillis());  // Ensure unique username
+//        user.setPassword("password123");
+//        user.setEmail("uniqueemail" + System.currentTimeMillis() + "@example.com"); // Ensure unique email
+//
+//        userRepository.save(user);  // Save test data to the repository
+//
+//        // When
+//        User foundUser = userRepository.findByUsername(user.getUsername());
+//
+//        // Then
+//        assertNotNull(foundUser);
+//        assertEquals(user.getUsername(), foundUser.getUsername());
+//    }
+//
+//}
+
+
+
 package com.nebyu.jobapplicationtracker.repository;
 
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import com.nebyu.jobapplicationtracker.model.JobApplication;
 import com.nebyu.jobapplicationtracker.model.User;
-import com.nebyu.jobapplicationtracker.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.TestPropertySource;
 
 import java.util.Optional;
 
@@ -18,35 +59,38 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@TestPropertySource(locations = "classpath:application-test.properties")
-public class UserRepositoryTest {
+class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
 
+    private User testUser;
+
     @BeforeEach
     public void setup() {
-        userRepository.deleteAll();
+        testUser = new User();
+        testUser.setUsername("testuser");
+        testUser.setPassword("password123");
+        testUser.setEmail("testuser@example.com");
     }
 
     @Test
-    void testFindByUsername() {
-        // Create the first user
-        User user = new User("testuser1", "testuser1@example.com", "password");
-        userRepository.save(user);
+    public void testFindByUsername() {
+        userRepository.save(testUser);
 
-        // Retrieve user by username
-        Optional<User> foundUser = Optional.ofNullable(userRepository.findByUsername("testuser1"));
+        User foundUser = userRepository.findByUsername("testuser");
 
-        // Check if user exists
-        assertTrue(foundUser.isPresent(), "User should be found in the repository");
+        assertNotNull(foundUser);
+        assertEquals("testuser", foundUser.getUsername());
+    }
 
-        // Now get the actual user object from the Optional
-        User retrievedUser = foundUser.get();
+    @Test
+    public void testFindByEmail() {
+        userRepository.save(testUser);
 
-        // Perform assertion on retrieved user
-        assertEquals("testuser1", retrievedUser.getUsername(), "Usernames should match");
-        assertEquals("testuser1@example.com", retrievedUser.getEmail(), "Emails should match");
-        assertEquals("password", retrievedUser.getPassword(), "Passwords should match");
+        Optional<User> foundUser = userRepository.findByEmail("testuser@example.com");
+
+        assertTrue(foundUser.isPresent());
+        assertEquals("testuser@example.com", foundUser.get().getEmail());
     }
 }

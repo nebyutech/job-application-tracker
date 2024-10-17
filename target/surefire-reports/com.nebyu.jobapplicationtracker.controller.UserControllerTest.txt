@@ -1,8 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.nebyu.jobapplicationtracker.controller.UserControllerTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.281 s <<< FAILURE! - in com.nebyu.jobapplicationtracker.controller.UserControllerTest
-com.nebyu.jobapplicationtracker.controller.UserControllerTest  Time elapsed: 0.279 s  <<< ERROR!
-java.lang.NoClassDefFoundError: org/springframework/web/servlet/config/annotation/WebMvcConfigurer
-Caused by: java.lang.ClassNotFoundException: org.springframework.web.servlet.config.annotation.WebMvcConfigurer
-

@@ -1,14 +1,7 @@
 package com.nebyu.jobapplicationtracker.model;
 
 import jakarta.persistence.*;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-
 import java.time.LocalDate;
-
 
 @Entity
 public class JobApplication {
@@ -23,7 +16,9 @@ public class JobApplication {
 
     @ManyToOne
     private User user;
-    private LocalDate applicationDate;
+
+    private LocalDate applicationDate;  // LocalDate field for application date
+
     // No-args constructor
     public JobApplication() {
     }
@@ -34,10 +29,10 @@ public class JobApplication {
         this.position = position;
         this.status = status;
         this.user = user;
+        this.applicationDate = LocalDate.now();  // Set current date by default
     }
 
     // Getters and setters
-
     public Long getId() {
         return id;
     }
@@ -76,5 +71,13 @@ public class JobApplication {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDate getApplicationDate() {
+        return applicationDate;
+    }
+
+    public void setApplicationDate(LocalDate applicationDate) {
+        this.applicationDate = applicationDate;
     }
 }

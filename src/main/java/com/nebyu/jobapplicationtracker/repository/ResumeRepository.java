@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResumeRepository extends JpaRepository<Resume, Long> {
-    // Additional query methods if needed
+// Additional query methods if needed
 }

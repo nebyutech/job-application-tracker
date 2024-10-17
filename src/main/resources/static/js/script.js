@@ -1,20 +1,16 @@
-// script.js
-
-// Function to validate the job application form
+// Form validation for job application
 document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
-    // Get the form fields
     var company = document.getElementById("company").value;
     var position = document.getElementById("position").value;
     var status = document.getElementById("status").value;
 
-    // Validate the form fields
     if (company === "" || position === "" || status === "") {
         alert("All fields are required!");
-        event.preventDefault();  // Stop the form from submitting
+        event.preventDefault();
     }
 });
 
-// JavaScript to make email editable
+// Email edit functionality in profile
 document.getElementById("editEmail").addEventListener("click", function() {
     var emailField = document.getElementById("emailField");
     var emailInput = document.getElementById("emailInput");
@@ -23,7 +19,6 @@ document.getElementById("editEmail").addEventListener("click", function() {
     emailInput.value = emailField.textContent;
     emailField.style.display = "none";
 
-    // Save email on blur (lose focus)
     emailInput.addEventListener("blur", function() {
         emailField.textContent = emailInput.value;
         emailField.style.display = "block";
@@ -31,36 +26,24 @@ document.getElementById("editEmail").addEventListener("click", function() {
     });
 });
 
-
-// Bootstrap-enhanced form validation
-(function () {
-    'use strict';
-    window.addEventListener('load', function () {
-        // Fetch all forms
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over forms and prevent submission if invalid
-        Array.prototype.filter.call(forms, function (form) {
-            form.addEventListener('submit', function (event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-
-// Resume upload interaction
-$('#resumeUpload').on('change', function () {
-    var fileName = $(this).val().split('\\').pop();
-    $(this).next('.custom-file-label').addClass('selected').html(fileName);
+// Resume upload filename display
+document.getElementById('resumeUpload').addEventListener('change', function() {
+    var fileName = this.value.split('\\').pop();
+    document.querySelector('.custom-file-label').textContent = fileName;
 });
 
-// Smooth scroll for anchor links
-$(document).on('click', 'a[href^="#"]', function (event) {
-    event.preventDefault();
-    $('html, body').animate({
-        scrollTop: $($.attr(this, 'href')).offset().top
-    }, 500);
+// Toastr Notifications for Form Submission
+$("#jobApplicationForm").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "/api/applications/create",
+        data: $(this).serialize(),
+        success: function(response) {
+            toastr.success(response);
+        },
+        error: function(error) {
+            toastr.error("Something went wrong. Please try again.");
+        }
+    });
 });

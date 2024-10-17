@@ -11,5 +11,5 @@ class JobApplicationTrackerApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
+

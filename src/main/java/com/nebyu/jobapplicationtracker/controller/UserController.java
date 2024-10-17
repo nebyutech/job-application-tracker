@@ -1,6 +1,8 @@
 package com.nebyu.jobapplicationtracker.controller;
 
 import com.nebyu.jobapplicationtracker.model.User;
+
+import com.nebyu.jobapplicationtracker.model.User;
 import com.nebyu.jobapplicationtracker.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-
-import org.springframework.web.bind.annotation.RestController;
-
-
-@RestController
+@RestController  // Ensure this annotation is present
 @RequestMapping("/api/users")
 public class UserController {
 
