@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)  // Use the actual database
 public class ResumeRepositoryTest {
 
     @Autowired
@@ -29,11 +29,13 @@ public class ResumeRepositoryTest {
         testResume.setUploadDate(LocalDateTime.now());
         testResume.setUserId(1L);
 
-        resumeRepository.save(testResume);
+        // Save the resume and retrieve the saved instance to get the generated ID
+        testResume = resumeRepository.save(testResume);  // save and retrieve the saved resume with its generated ID
     }
 
     @Test
     public void testSaveResume() {
+        // Retrieve the resume using the generated ID
         Optional<Resume> foundResume = resumeRepository.findById(testResume.getId());
 
         assertTrue(foundResume.isPresent());
@@ -42,6 +44,7 @@ public class ResumeRepositoryTest {
 
     @Test
     public void testDeleteResume() {
+        // Delete using the generated ID
         resumeRepository.deleteById(testResume.getId());
 
         Optional<Resume> foundResume = resumeRepository.findById(testResume.getId());

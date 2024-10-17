@@ -4,26 +4,26 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "resumes")
 public class Resume {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long
-            id;
+    private Long id;
 
-    @Column(nullable = false)
     private String fileName;
-
-    @Column(nullable = false)
     private String filePath;
-
-    @Column(nullable = false)
     private LocalDateTime uploadDate;
-
-    @Column(nullable = false)
     private Long userId;
 
     // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -54,17 +54,5 @@ public class Resume {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public void setUser(User user) {
-
-    }
-
-    public void setId(long l) {
-
-    }
-
-    public Long getId() {
-        return null;
     }
 }

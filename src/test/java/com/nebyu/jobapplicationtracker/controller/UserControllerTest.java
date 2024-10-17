@@ -40,7 +40,8 @@ public class UserControllerTest {
     public void setup() {
         testUser = new User();
         testUser.setUsername("testuser");
-        testUser.setPassword("password123");
+        // Encode the password using BCryptPasswordEncoder
+        testUser.setPassword(new BCryptPasswordEncoder().encode("password123"));
         testUser.setEmail("testuser@example.com");
     }
 
@@ -73,20 +74,27 @@ public class UserControllerTest {
     public void loginUser_Success() throws Exception {
         // Mock the service call for login
         Mockito.when(userService.findByUsername(testUser.getUsername())).thenReturn(testUser);
-        Mockito.when(passwordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(true);
+        // Ensure password matches correctly
+        Mockito.when(passwordEncoder.matches("password123", testUser.getPassword())).thenReturn(true);
+
+        // Prepare the request with raw password (not encoded)
+        User loginUser = new User();
+        loginUser.setUsername("testuser");
+        loginUser.setPassword("password123");  // Raw password
 
         mockMvc.perform(post("/api/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testUser)))
+                        .content(objectMapper.writeValueAsString(loginUser)))  // Use raw password in the request body
                 .andExpect(status().isOk())
                 .andExpect(content().string("Login successful."));
     }
+
 
     @Test
     public void loginUser_InvalidCredentials() throws Exception {
         // Mock the service call for invalid credentials
         Mockito.when(userService.findByUsername(testUser.getUsername())).thenReturn(testUser);
-        Mockito.when(passwordEncoder.matches(Mockito.anyString(), Mockito.anyString())).thenReturn(false);
+        Mockito.when(passwordEncoder.matches("password123", testUser.getPassword())).thenReturn(false);
 
         mockMvc.perform(post("/api/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
