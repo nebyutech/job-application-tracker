@@ -113,11 +113,11 @@ public class JobApplicationRepositoryTest {
     }
 
     @Test
-    public void testFindByDateRange() {
+    public void testFindByApplicationDateBetween() {
         LocalDate startDate = LocalDate.now().minusDays(1);
         LocalDate endDate = LocalDate.now().plusDays(1);
 
-        List<JobApplication> applications = jobApplicationRepository.findByDateRange(startDate, endDate);
+        List<JobApplication> applications = jobApplicationRepository.findByApplicationDateBetween(startDate, endDate);
         assertFalse(applications.isEmpty());
         assertEquals(1, applications.size());
     }

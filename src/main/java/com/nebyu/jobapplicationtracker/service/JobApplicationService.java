@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobApplicationService {
@@ -19,10 +20,16 @@ public class JobApplicationService {
     }
 
     public JobApplication saveJobApplication(JobApplication jobApplication) {
-        return jobApplicationRepository.save(jobApplication);
+        return (JobApplication) jobApplicationRepository.save(jobApplication);
     }
 
     public void deleteJobApplication(Long id) {
         jobApplicationRepository.deleteById(id);
     }
+
+    public Optional<JobApplication> findById(Long id) {
+        return jobApplicationRepository.findById(id);
+    }
+
+
 }
