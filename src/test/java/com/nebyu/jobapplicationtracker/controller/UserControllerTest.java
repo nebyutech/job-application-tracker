@@ -91,7 +91,7 @@ public class UserControllerTest {
 
         mockMvc.perform(post("/api/users/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(loginUser)))  // Use raw password in the request body
+                        .content(objectMapper.writeValueAsString(loginUser)))  
                 .andExpect(status().isOk())
                 .andExpect((ResultMatcher) content().string("Login successful."));
     }

@@ -9,10 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+=======
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+>>>>>>> ec3f42f4db8f2ba106c376a707893343b9de152e
 
 @RestController
 @RequestMapping("/api/applications")

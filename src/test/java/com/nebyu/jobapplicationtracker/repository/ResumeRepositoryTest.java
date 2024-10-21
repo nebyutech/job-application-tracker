@@ -13,7 +13,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)  // Use the actual database
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)  
 public class ResumeRepositoryTest {
 
     @Autowired
@@ -30,7 +30,7 @@ public class ResumeRepositoryTest {
         testResume.setUserId(1L);
 
         // Save the resume and retrieve the saved instance to get the generated ID
-        testResume = resumeRepository.save(testResume);  // save and retrieve the saved resume with its generated ID
+        testResume = resumeRepository.save(testResume);  
     }
 
     @Test
