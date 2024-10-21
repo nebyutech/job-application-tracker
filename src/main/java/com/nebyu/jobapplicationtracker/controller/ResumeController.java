@@ -14,8 +14,11 @@ import java.time.LocalDateTime;
 public class ResumeController {
 
     @Autowired
-    private ResumeService resumeService;
+    private ResumeService resumeService;  // Service layer for resume logic
 
+    /**
+     * Handle resume upload and save the file details to the database.
+     */
     @PostMapping("/upload")
     public ResponseEntity<String> uploadResume(@RequestParam("file") MultipartFile file, @RequestParam("userId") Long userId) {
         if (file == null || file.isEmpty()) {
@@ -23,7 +26,7 @@ public class ResumeController {
         }
 
         String fileName = file.getOriginalFilename();
-        String filePath = "/path/to/save/" + fileName;
+        String filePath = "/path/to/save/" + fileName;  // File path logic can be updated as needed
 
         Resume resume = new Resume();
         resume.setFileName(fileName);

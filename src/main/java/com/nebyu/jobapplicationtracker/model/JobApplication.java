@@ -3,37 +3,35 @@ package com.nebyu.jobapplicationtracker.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
-
 @Entity
 public class JobApplication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  // Primary key for job applications
 
-    private String company;
-    private String position;
-    private String status;
+    private String company;  // Name of the company
+    private String position;  // Job position
+    private String status;  // Application status (e.g., Applied, Interviewing, Offer)
 
     @ManyToOne
-    private User user;
+    private User user;  // Association with the User who owns the application
 
-    private LocalDate applicationDate;  // LocalDate field for application date
+    private LocalDate applicationDate;  // Date the application was made
 
-    // No-args constructor
-    public JobApplication() {
-    }
+    // No-args constructor required by JPA
+    public JobApplication() {}
 
-    // Parameterized constructor
+    // Constructor for creating new JobApplication instances
     public JobApplication(String company, String position, String status, User user) {
         this.company = company;
         this.position = position;
         this.status = status;
         this.user = user;
-        this.applicationDate = LocalDate.now();  // Set current date by default
+        this.applicationDate = LocalDate.now();  // Set the application date to the current date
     }
 
-    // Getters and setters
+    // Getters and Setters for all fields
     public Long getId() {
         return id;
     }

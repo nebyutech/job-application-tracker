@@ -1,49 +1,63 @@
-// Form validation for job application
-document.getElementById("jobApplicationForm").addEventListener("submit", function(event) {
-    var company = document.getElementById("company").value;
-    var position = document.getElementById("position").value;
-    var status = document.getElementById("status").value;
-
-    if (company === "" || position === "" || status === "") {
-        alert("All fields are required!");
-        event.preventDefault();
+// Function to delete a job application
+function deleteApplication(id) {
+    if (confirm("Are you sure you want to delete this application?")) {
+        fetch(`/api/applications/${id}`, {
+            method: 'DELETE'
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data === "Job application deleted successfully.") {
+                    alert(data);
+                    location.reload(); // Reload the page after successful deletion
+                } else {
+                    alert(data);
+                }
+            })
+            .catch(error => alert("Error deleting application: " + error));
     }
+}
+
+// Function to handle form submission for login
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    fetch('/api/users/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: username, password: password })
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "Login successful.") {
+                alert(data);
+                window.location.href = "/job-applications"; // Redirect to job applications page
+            } else {
+                alert(data);
+            }
+        })
+        .catch(error => alert("Error logging in: " + error));
 });
 
-// Email edit functionality in profile
-document.getElementById("editEmail").addEventListener("click", function() {
-    var emailField = document.getElementById("emailField");
-    var emailInput = document.getElementById("emailInput");
+// Function to update user email
+function saveEmail(userId) {
+    const newEmail = document.getElementById('emailInput').value;
 
-    emailInput.style.display = "block";
-    emailInput.value = emailField.textContent;
-    emailField.style.display = "none";
-
-    emailInput.addEventListener("blur", function() {
-        emailField.textContent = emailInput.value;
-        emailField.style.display = "block";
-        emailInput.style.display = "none";
-    });
-});
-
-// Resume upload filename display
-document.getElementById('resumeUpload').addEventListener('change', function() {
-    var fileName = this.value.split('\\').pop();
-    document.querySelector('.custom-file-label').textContent = fileName;
-});
-
-// Toastr Notifications for Form Submission
-$("#jobApplicationForm").submit(function(e) {
-    e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "/api/applications/create",
-        data: $(this).serialize(),
-        success: function(response) {
-            toastr.success(response);
-        },
-        error: function(error) {
-            toastr.error("Something went wrong. Please try again.");
-        }
-    });
-});
+    fetch(`/api/users/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newEmail })
+    })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "User updated successfully.") {
+                alert(data);
+                document.getElementById('emailField').textContent = newEmail;
+                toggleEmailEdit();
+            } else {
+                alert(data);
+            }
+        })
+        .catch(error => alert("Error updating email: " + error));
+}

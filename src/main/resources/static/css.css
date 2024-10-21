@@ -72,3 +72,56 @@ input, select {
     border-radius: 5px;
     font-size: 1em;
 }
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+
+    .navbar a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+
+    .navbar a {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .navbar a {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    input, select {
+        font-size: 0.9em;
+    }
+}
+
+

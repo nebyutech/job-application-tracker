@@ -8,14 +8,14 @@ public class Resume {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;  // Primary key for resume
 
-    private String fileName;
-    private String filePath;
-    private LocalDateTime uploadDate;
-    private Long userId;
+    private String fileName;  // Original file name
+    private String filePath;  // Path to where the file is stored
+    private LocalDateTime uploadDate;  // Date and time the resume was uploaded
+    private Long userId;  // ID of the user who uploaded the resume
 
-    // Getters and Setters
+    // Getters and Setters for all fields
     public Long getId() {
         return id;
     }

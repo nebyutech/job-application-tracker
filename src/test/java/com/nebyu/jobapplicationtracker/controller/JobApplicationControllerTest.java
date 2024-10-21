@@ -17,12 +17,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-
-import java.util.Optional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -60,6 +58,11 @@ public class JobApplicationControllerTest {
 
     @Test
     public void createJobApplication_Success() throws Exception {
+        // Manual validation inside the test
+        if (testJobApplication.getCompany() == null || testJobApplication.getPosition() == null) {
+            throw new IllegalArgumentException("Company and position cannot be null");
+        }
+
         Mockito.when(userService.findById(1L)).thenReturn(Optional.of(testUser));
         Mockito.when(jobApplicationService.saveJobApplication(Mockito.any(JobApplication.class)))
                 .thenReturn(testJobApplication);
@@ -69,11 +72,9 @@ public class JobApplicationControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testJobApplication)))
                 .andExpect(status().isOk())
-                // Expect a JSON response with the message and applicationId
                 .andExpect(jsonPath("$.message").value("Job application created successfully."))
-                .andExpect(jsonPath("$.applicationId").value(1));  // Verify applicationId is included
+                .andExpect(jsonPath("$.applicationId").value(testJobApplication.getId()));
     }
-
 
     @Test
     public void getAllApplicationsForUser_Success() throws Exception {
@@ -93,6 +94,6 @@ public class JobApplicationControllerTest {
 
         mockMvc.perform(delete("/api/applications/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Job application deleted successfully."));
+                .andExpect(jsonPath("$.message").value("Job application deleted successfully."));
     }
 }

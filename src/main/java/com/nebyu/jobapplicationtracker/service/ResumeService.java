@@ -5,14 +5,16 @@ import com.nebyu.jobapplicationtracker.repository.ResumeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class ResumeService {
+
     @Autowired
     private ResumeRepository resumeRepository;
 
+    /**
+     * Save a resume to the database.
+     */
     public Resume save(Resume resume) {
-        resumeRepository.save(resume); // Save to database
-        return resume;
+        return resumeRepository.save(resume);  // Save resume to the repository
     }
 }

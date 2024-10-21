@@ -1,0 +1,13 @@
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\controller\GlobalExceptionHandlerTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\service\ResumeServiceTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\service\JobApplicationServiceTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\integration\DatabaseIntegrationTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\repository\JobApplicationRepositoryTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\service\UserServiceTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\integration\JobApplicationIntegrationTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\repository\ResumeRepositoryTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\controller\JobApplicationControllerTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\controller\ResumeControllerTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\JobApplicationTrackerApplicationTests.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\controller\UserControllerTest.java
+C:\Documents\job-application-tracker\src\test\java\com\nebyu\jobapplicationtracker\repository\UserRepositoryTest.java

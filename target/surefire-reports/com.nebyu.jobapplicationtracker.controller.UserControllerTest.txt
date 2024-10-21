@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.nebyu.jobapplicationtracker.controller.UserControllerTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 1.468 s <<< FAILURE! - in com.nebyu.jobapplicationtracker.controller.UserControllerTest
+loginUser_InvalidCredentials  Time elapsed: 0.275 s  <<< ERROR!
+java.lang.ClassCastException: class org.springframework.test.web.client.match.ContentRequestMatchers$$Lambda$1697/0x000002d6309bf678 cannot be cast to class org.springframework.test.web.servlet.ResultMatcher (org.springframework.test.web.client.match.ContentRequestMatchers$$Lambda$1697/0x000002d6309bf678 and org.springframework.test.web.servlet.ResultMatcher are in unnamed module of loader 'app')
+	at com.nebyu.jobapplicationtracker.controller.UserControllerTest.loginUser_InvalidCredentials(UserControllerTest.java:101)
+
+registerUser_Success  Time elapsed: 0.145 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<500>
+	at com.nebyu.jobapplicationtracker.controller.UserControllerTest.registerUser_Success(UserControllerTest.java:57)
+
+loginUser_Success  Time elapsed: 0.158 s  <<< FAILURE!
+java.lang.AssertionError: Status expected:<200> but was:<400>
+	at com.nebyu.jobapplicationtracker.controller.UserControllerTest.loginUser_Success(UserControllerTest.java:85)
+

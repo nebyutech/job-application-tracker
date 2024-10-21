@@ -1,0 +1,16 @@
+com\nebyu\jobapplicationtracker\repository\JobApplicationRepository.class
+com\nebyu\jobapplicationtracker\controller\GlobalExceptionHandler.class
+com\nebyu\jobapplicationtracker\exception\ResourceNotFoundException.class
+com\nebyu\jobapplicationtracker\service\UserService.class
+com\nebyu\jobapplicationtracker\JobApplicationTrackerApplication.class
+com\nebyu\jobapplicationtracker\controller\JobApplicationController.class
+com\nebyu\jobapplicationtracker\repository\UserRepository.class
+com\nebyu\jobapplicationtracker\model\JobApplication.class
+com\nebyu\jobapplicationtracker\controller\ResumeController.class
+com\nebyu\jobapplicationtracker\repository\ResumeRepository.class
+com\nebyu\jobapplicationtracker\model\Resume.class
+com\nebyu\jobapplicationtracker\model\User.class
+com\nebyu\jobapplicationtracker\controller\UserController.class
+com\nebyu\jobapplicationtracker\service\JobApplicationService.class
+com\nebyu\jobapplicationtracker\service\ResumeService.class
+com\nebyu\jobapplicationtracker\config\SecurityConfig.class

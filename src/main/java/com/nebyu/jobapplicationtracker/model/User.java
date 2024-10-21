@@ -2,40 +2,35 @@ package com.nebyu.jobapplicationtracker.model;
 
 import jakarta.persistence.*;
 
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Column;
-
-
 @Entity
-@Table(name = "users")
+@Table(name = "users")  // Define the users table in the database
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false, unique = false)
-    private String username;
+    private Long id;  // Primary key for users
 
     @Column(nullable = false)
-    private String password;
+    private String username;  // Username of the user
+
+    @Column(nullable = false)
+    private String password;  // Encrypted password
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String email;  // Email of the user (must be unique)
 
-    public User(String testuser1, String mail, String password) {
+    // No-args constructor required by JPA
+    public User() {}
+
+    public User(String testuser, String mail, String password123) {
+
     }
 
-    public User() {
+    public User(String testuser, String password123) {
 
     }
 
-
-    // Getters and Setters
+    // Getters and Setters for all fields
     public Long getId() {
         return id;
     }
@@ -53,7 +48,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;  // Add this getter method
+        return password;
     }
 
     public void setPassword(String password) {
@@ -67,6 +62,4 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 }
