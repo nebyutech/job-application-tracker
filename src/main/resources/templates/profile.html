@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Profile</title>
@@ -51,12 +51,183 @@
     </p>
 </div>
 
+<!- Footer ->
+<div class="footer">
+    <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
+</div>
+
+<!- Include script.js ->
+<script src="/js/script.js"></script>
+</body>
+</html>
+-->
+
+
+
+<!--
+<h2>Profile</h2>
+<p id="emailField">test@example.com</p>
+<input type="email" id="emailInput" style="display:none;">
+<button id="editEmail">Edit Email</button>
+
+<script src="script.js"></script>
+-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+            padding: 15px;
+        }
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .navbar a:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .profile-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        #editEmail {
+            cursor: pointer;
+            color: #28a745;
+            background: none;
+            border: none;
+            text-decoration: underline;
+            padding: 0;
+            font: inherit;
+        }
+        #editEmail:hover {
+            color: #218838;
+        }
+        #emailInput {
+            display: none;
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .save-btn {
+            display: none;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .save-btn:hover {
+            background-color: #218838;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+    </style>
+    <script>
+        function toggleEmailEdit() {
+            const emailField = document.getElementById('emailField');
+            const emailInput = document.getElementById('emailInput');
+            const saveBtn = document.getElementById('saveBtn');
+            const editBtn = document.getElementById('editEmail');
+
+            if (emailInput.style.display === "none") {
+                emailInput.style.display = "block";
+                emailInput.value = emailField.textContent;
+                saveBtn.style.display = "inline-block";
+                editBtn.textContent = "Cancel";
+            } else {
+                emailInput.style.display = "none";
+                saveBtn.style.display = "none";
+                editBtn.textContent = "Edit";
+            }
+        }
+
+        function saveEmail(userId) {
+            const newEmail = document.getElementById('emailInput').value;
+
+            fetch(`/api/users/${userId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: newEmail })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if(data === "User updated successfully.") {
+                        alert(data);
+                        document.getElementById('emailField').textContent = newEmail;
+                        toggleEmailEdit();
+                    } else {
+                        alert(data);
+                    }
+                })
+                .catch(error => alert("Error updating email: " + error));
+        }
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+    <a href="/job-applications">My Applications</a>
+    <a href="/upload-resumes">Upload Resume</a>
+    <a href="/profile">Profile</a>
+</div>
+
+<div class="profile-container">
+    <h1>User Profile</h1>
+    <p>Username: <span th:text="${user.username}">Username</span></p>
+    <p>Email: <span id="emailField" th:text="${user.email}">Email</span>
+        <button id="editEmail" onclick="toggleEmailEdit()">Edit</button>
+        <input type="email" id="emailInput" placeholder="Enter new email" required>
+        <button class="save-btn" id="saveBtn" onclick="saveEmail([[${user.id}]])">Save</button>
+    </p>
+</div>
+
 <!-- Footer -->
 <div class="footer">
     <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
 </div>
 
-<!-- Include script.js -->
-<script src="/js/script.js"></script>
 </body>
 </html>
+
+

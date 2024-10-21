@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!--
+DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Register - Job Application Tracker</title>
@@ -91,12 +92,52 @@
     </form>
 </div>
 
-<!-- Footer -->
+<!- Footer ->
 <div class="footer">
     <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
 </div>
 
-<!-- Include script.js -->
+<!- Include script.js ->
 <script src="/js/script.js"></script>
 </body>
 </html>
+-->
+
+
+<form id="registerForm">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email">
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password">
+
+    <button type="submit" class="btn btn-custom">Register</button>
+</form>
+
+<script>
+    document.getElementById("registerForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        fetch("/api/users/register", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username, email: email, password: password })
+        })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                if (message === "User registered successfully.") {
+                    window.location.href = "login.html";  // Redirect to login page
+                }
+            })
+            .catch(error => alert("Error registering: " + error));
+    });
+</script>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Your Job Applications</title>
@@ -74,10 +74,31 @@
 
 <a href="/" class="back-btn">Back to Home</a>
 
-<!-- Footer -->
+ Footer
 <div class="footer">
     <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
 </div>
 
 </body>
-</html>
+</html> -->
+
+
+<div id="jobApplicationsContainer"></div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const userId = 1; // Change this to the logged-in user's ID.
+        fetch(`/api/applications/user/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                let output = '<table class="table">';
+                output += '<thead><tr><th>Company</th><th>Position</th><th>Status</th></tr></thead><tbody>';
+                data.forEach(app => {
+                    output += `<tr><td>${app.company}</td><td>${app.position}</td><td>${app.status}</td></tr>`;
+                });
+                output += '</tbody></table>';
+                document.getElementById('jobApplicationsContainer').innerHTML = output;
+            });
+    });
+</script>
+

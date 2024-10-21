@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -70,7 +71,7 @@
     </form>
 </div>
 
-<!-- Include JavaScript -->
+     Include JavaScript
 <script src="/js/script.js"></script>
 <script>
     document.getElementById('jobApplicationForm').addEventListener('submit', function (event) {
@@ -104,3 +105,21 @@
 </script>
 </body>
 </html>
+-->
+
+
+<form id="jobApplicationForm">
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company">
+
+    <label for="position">Position:</label>
+    <input type="text" id="position" name="position">
+
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status">
+
+    <input type="hidden" id="userId" name="userId" value="1">
+
+    <button type="submit" class="btn btn-custom">Submit Application</button>
+</form>
+<script src="script.js"></script>

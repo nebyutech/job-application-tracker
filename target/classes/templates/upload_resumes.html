@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!--
+DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Upload Resume - Job Application Tracker</title>
@@ -82,12 +83,24 @@
   </form>
 </div>
 
-<!-- Footer -->
+<!- Footer ->
 <div class="footer">
   <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
 </div>
 
-<!-- Include script.js -->
+<!- Include script.js ->
 <script src="/js/script.js"></script>
 </body>
 </html>
+-->
+
+<form id="resumeUploadForm" enctype="multipart/form-data">
+  <label for="resumeUpload">Upload Resume:</label>
+  <input type="file" id="resumeUpload" name="file">
+
+  <input type="hidden" id="userId" name="userId" value="1">
+
+  <button type="submit" class="btn btn-custom">Upload</button>
+</form>
+
+<script src="script.js"></script>

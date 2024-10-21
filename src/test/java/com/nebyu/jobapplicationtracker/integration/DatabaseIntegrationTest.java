@@ -17,7 +17,6 @@ public class DatabaseIntegrationTest {
     @Autowired
     private JobApplicationRepository jobApplicationRepository;
 
-    // Assuming this is in DatabaseIntegrationTest.java
     @Test
     public void testFindByApplicationDateBetween() {
         LocalDate startDate = LocalDate.now().minusDays(1);

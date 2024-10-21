@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -70,7 +71,7 @@
     </form>
 </div>
 
-<!-- Include JavaScript -->
+     Include JavaScript
 <script src="/js/script.js"></script>
 <script>
     document.getElementById('jobApplicationForm').addEventListener('submit', function (event) {
@@ -102,5 +103,117 @@
         });
     });
 </script>
+</body>
+</html>
+-->
+
+<!--
+<form id="jobApplicationForm">
+    <label for="company">Company:</label>
+    <input type="text" id="company" name="company">
+
+    <label for="position">Position:</label>
+    <input type="text" id="position" name="position">
+
+    <label for="status">Status:</label>
+    <input type="text" id="status" name="status">
+
+    <input type="hidden" id="userId" name="userId" value="1">
+
+    <button type="submit" class="btn btn-custom">Submit Application</button>
+</form>
+<script src="script.js"></script>
+-->
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Job Application</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .form-container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1.2em;
+        }
+
+        input, select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+    <a href="/job-applications">My Applications</a>
+    <a href="/upload-resumes">Upload Resume</a>
+    <a href="/profile">Profile</a>
+</div>
+
+<div class="form-container">
+    <h1>Create Job Application</h1>
+    <form id="jobApplicationForm" th:action="@{/api/applications/create}" method="post">
+        <input type="hidden" name="userId" th:value="${user.id}" /> <!-- Dynamically set user ID -->
+
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" placeholder="Company" required>
+
+        <label for="position">Position</label>
+        <input type="text" id="position" name="position" placeholder="Position" required>
+
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+            <option value="">Select Status</option>
+            <option value="Applied">Applied</option>
+            <option value="Interviewing">Interviewing</option>
+            <option value="Offer">Offer</option>
+        </select>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
+</div>
+
 </body>
 </html>

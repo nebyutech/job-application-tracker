@@ -20,9 +20,10 @@ public class GlobalExceptionHandlerTest {
     @Test
     public void testResourceNotFoundException() throws Exception {
         mockMvc.perform(get("/api/invalidEndpoint"))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isNotFound())  // Expect 404 Not Found
                 .andExpect(content().string("An error occurred: No handler found."));
     }
+
 
 
     @Test
@@ -31,4 +32,5 @@ public class GlobalExceptionHandlerTest {
                 .andExpect(status().isMethodNotAllowed())  // Expecting 405
                 .andExpect(content().string("An error occurred: Request method 'GET' is not supported."));
     }
+
 }

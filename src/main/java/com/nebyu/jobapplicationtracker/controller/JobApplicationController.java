@@ -9,60 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
-
-//@RestController
-//@RequestMapping("/api/applications")
-//public class JobApplicationController {
-//
-//    @Autowired
-//    private JobApplicationService jobApplicationService;
-//
-//    @Autowired
-//    private UserService userService;
-//
-//    @PostMapping("/create")
-//    public ResponseEntity<String> createJobApplication(@RequestParam Long userId, @RequestBody JobApplication jobApplication) {
-//        Optional<User> user = userService.findById(userId);
-//
-//        if (user.isPresent()) {
-//            jobApplication.setUser(user.get());
-//            jobApplicationService.saveJobApplication(jobApplication);
-//            return ResponseEntity.ok("Job application created successfully.");
-//        } else {
-//            return ResponseEntity.badRequest().body("User not found.");
-//        }
-//    }
-//
-//    @GetMapping("/user/{userId}")
-//    public ResponseEntity<List<JobApplication>> getAllApplicationsForUser(@PathVariable Long userId) {
-//        Optional<User> user = userService.findById(userId);
-//        if (user.isPresent()) {
-//            List<JobApplication> applications = jobApplicationService.getAllJobApplicationsForUser(user.get());
-//            return ResponseEntity.ok(applications);
-//        }
-//        return ResponseEntity.badRequest().build();
-//    }
-//
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<String> deleteJobApplication(@PathVariable Long id) {
-//        jobApplicationService.deleteJobApplication(id);
-//        return ResponseEntity.ok("Job application deleted successfully.");
-//    }
-//}
-
-
-import com.nebyu.jobapplicationtracker.model.JobApplication;
-import com.nebyu.jobapplicationtracker.model.User;
-import com.nebyu.jobapplicationtracker.service.JobApplicationService;
-import com.nebyu.jobapplicationtracker.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -75,19 +24,30 @@ public class JobApplicationController {
     @Autowired
     private UserService userService;
 
-    // Create a new job application
+
     @PostMapping("/create")
-    public ResponseEntity<String> createJobApplication(@RequestParam Long userId, @RequestBody JobApplication jobApplication) {
+    public ResponseEntity<Map<String, Object>> createJobApplication(@RequestParam Long userId, @RequestBody JobApplication jobApplication) {
         Optional<User> user = userService.findById(userId);
 
         if (user.isPresent()) {
             jobApplication.setUser(user.get());
-            jobApplicationService.saveJobApplication(jobApplication);
-            return ResponseEntity.ok("Job application created successfully.");
+            JobApplication savedJobApplication = jobApplicationService.saveJobApplication(jobApplication);  // Save and get the saved entity
+
+            // Create a response map with the applicationId and message
+            Map<String, Object> response = new HashMap<>();
+            response.put("message", "Job application created successfully.");
+            response.put("applicationId", savedJobApplication.getId());  // Include applicationId in the response
+
+            return ResponseEntity.ok(response);  // Return 200 OK with the response
         } else {
-            return ResponseEntity.badRequest().body("User not found.");
+            return ResponseEntity.badRequest().body(Map.of("message", "User not found."));
         }
     }
+
+
+
+
+
 
     // Get all job applications for a specific user
     @GetMapping("/user/{userId}")

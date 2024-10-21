@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Job Application</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .form-container {
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-size: 1.2em;
+        }
+
+        input, select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+        .back-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        function updateApplication(id) {
+            event.preventDefault();
+
+            const company = document.getElementById('company').value;
+            const position = document.getElementById('position').value;
+            const status = document.getElementById('status').value;
+
+            fetch(`/api/applications/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    company: company,
+                    position: position,
+                    status: status
+                })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if(data === "Job application updated successfully.") {
+                        alert(data);
+                        window.location.href = "/job-applications"; // Redirect to applications page
+                    } else {
+                        alert(data);
+                    }
+                })
+                .catch(error => alert("Error updating application: " + error));
+        }
+    </script>
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+    <a href="/job-applications">My Applications</a>
+    <a href="/upload-resumes">Upload Resume</a>
+    <a href="/profile">Profile</a>
+</div>
+
+<div class="form-container">
+    <h1>Update Job Application</h1>
+    <form id="updateJobApplicationForm" th:action="@{/api/applications/{id}(id=${application.id})}" method="post">
+        <input type="hidden" name="id" th:value="${application.id}" />
+
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" th:value="${application.company}" required>
+
+        <label for="position">Position</label>
+        <input type="text" id="position" name="position" th:value="${application.position}" required>
+
+        <label for="status">Status</label>
+        <select id="status" name="status" required>
+            <option value="">Select Status</option>
+            <option value="Applied" th:selected="${application.status == 'Applied'}">Applied</option>
+            <option value="Interviewing" th:selected="${application.status == 'Interviewing'}">Interviewing</option>
+            <option value="Offer" th:selected="${application.status == 'Offer'}">Offer</option>
+        </select>
+
+        <button type="submit" class="submit-btn" onclick="updateApplication([[${application.id}]])">Update</button>
+    </form>
+    <a href="/job-applications" class="back-btn">Back to Applications</a>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
+</div>
+
+</body>
+</html>

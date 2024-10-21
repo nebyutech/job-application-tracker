@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!--
+DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Upload Resume - Job Application Tracker</title>
@@ -82,12 +83,171 @@
   </form>
 </div>
 
+<!- Footer ->
+<div class="footer">
+  <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
+</div>
+
+<!- Include script.js ->
+<script src="/js/script.js"></script>
+</body>
+</html>
+-->
+
+
+<!--
+<form id="resumeUploadForm" enctype="multipart/form-data">
+  <label for="resumeUpload">Upload Resume:</label>
+  <input type="file" id="resumeUpload" name="file">
+
+  <input type="hidden" id="userId" name="userId" value="1">
+
+  <button type="submit" class="btn btn-custom">Upload</button>
+</form>
+
+<script src="script.js"></script>
+-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Upload Resume - Job Application Tracker</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+    }
+    .navbar {
+      background-color: #333;
+      overflow: hidden;
+      padding: 15px;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 10px 20px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .navbar a:hover {
+      background-color: #28a745;
+      color: #fff;
+    }
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .custom-file {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 2.5rem;
+      margin-bottom: 15px;
+    }
+    .custom-file-input {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .custom-file-label {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 15px;
+      background-color: #ddd;
+      border-radius: 100px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+    .submit-btn {
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      padding: 15px;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 100px;
+      transition: background-color 0.3s ease;
+    }
+    .submit-btn:hover {
+      background-color: #218838;
+    }
+    .footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+  </style>
+  <script>
+    document.getElementById('resumeForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const formData = new FormData(form);
+
+      fetch('/api/resumes/upload', {
+        method: 'POST',
+        body: formData
+      })
+              .then(response => response.text())
+              .then(data => {
+                if(data === "Resume uploaded successfully") {
+                  alert(data);
+                  window.location.href = "/job-applications"; // Redirect to applications page
+                } else {
+                  alert(data);
+                }
+              })
+              .catch(error => alert("Error uploading resume: " + error));
+    });
+  </script>
+</head>
+<body>
+
+<div class="navbar">
+  <a href="/">Home</a>
+  <a href="/login">Login</a>
+  <a href="/register">Register</a>
+  <a href="/job-applications">My Applications</a>
+  <a href="/upload-resumes">Upload Resume</a>
+  <a href="/profile">Profile</a>
+</div>
+
+<div class="container">
+  <h1>Upload Resume</h1>
+  <form id="resumeForm" enctype="multipart/form-data">
+    <div class="custom-file">
+      <input type="file" class="custom-file-input" id="resumeUpload" name="file" required>
+      <label class="custom-file-label" for="resumeUpload">Choose file...</label>
+    </div>
+    <input type="hidden" name="userId" th:value="${user.id}" /> <!-- Dynamically set user ID -->
+    <button type="submit" class="submit-btn">Upload Resume</button>
+  </form>
+</div>
+
 <!-- Footer -->
 <div class="footer">
   <p>&copy; 2024 Job Application Tracker. All rights reserved.</p>
 </div>
 
-<!-- Include script.js -->
-<script src="/js/script.js"></script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.nebyu.jobapplicationtracker.service;
 
 import com.nebyu.jobapplicationtracker.model.User;
 import com.nebyu.jobapplicationtracker.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,13 @@ public class UserService {
 
     public <T> Object loginUser(T any) {
         return null;
+    }
+
+
+    public void updateUserEmail(Long id, String newEmail) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+        user.setEmail(newEmail);
+        userRepository.save(user);
     }
 }

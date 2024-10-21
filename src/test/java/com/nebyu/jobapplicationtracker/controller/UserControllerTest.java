@@ -1,11 +1,9 @@
 package com.nebyu.jobapplicationtracker.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nebyu.jobapplicationtracker.model.User;
 import com.nebyu.jobapplicationtracker.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +12,13 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import org.mockito.Mockito;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -55,8 +57,11 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testUser)))
                 .andExpect(status().isOk())
-                .andExpect(content().string("User registered successfully."));
+                .andExpect(jsonPath("$.message").value("User registered successfully."))
+                .andExpect(jsonPath("$.userId").isNotEmpty());  // Check that userId is returned
     }
+
+
 
     @Test
     public void registerUser_UsernameTaken() throws Exception {
@@ -67,8 +72,10 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testUser)))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("Username already taken."));
+                .andExpect(jsonPath("$.message").value("Username already taken."));
     }
+
+
 
     @Test
     public void loginUser_Success() throws Exception {
@@ -86,7 +93,7 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginUser)))  // Use raw password in the request body
                 .andExpect(status().isOk())
-                .andExpect(content().string("Login successful."));
+                .andExpect((ResultMatcher) content().string("Login successful."));
     }
 
 
@@ -100,6 +107,6 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testUser)))
                 .andExpect(status().isBadRequest())
-                .andExpect(content().string("Invalid username or password."));
+                .andExpect((ResultMatcher) content().string("Invalid username or password."));
     }
 }
